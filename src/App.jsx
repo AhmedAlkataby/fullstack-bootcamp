@@ -21,6 +21,17 @@ const CodeBlock = ({ code }) => (
   </div>
 );
 
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  return (
+    <footer className="mt-12 py-8 border-t border-slate-800/60 text-center">
+      <p className="text-slate-500 text-sm font-medium">
+        &copy; {currentYear} Ahmed Al-Kataby. All rights reserved.
+      </p>
+    </footer>
+  );
+};
+
 // --- COURSE DATA ---
 
 const courseSections = [
@@ -414,12 +425,15 @@ const Html5CourseView = ({ onBack }) => {
         {/* Content Panel */}
         <main className="flex-1 overflow-y-auto bg-gray-900 flex flex-col">
           <div className="flex-1 max-w-4xl mx-auto w-full p-6 md:p-10 pb-24">
-            <div className="mb-8">
-              <span className="inline-block py-1 px-3 rounded-full bg-[#E34F26]/20 text-[#E34F26] text-xs font-bold uppercase tracking-wider mb-3 border border-[#E34F26]/30">
-                Section {activeSection + 1} of {courseSections.length}
-              </span>
-              {courseSections[activeSection].content}
+            <div>
+              <div className="mb-8">
+                <span className="inline-block py-1 px-3 rounded-full bg-[#E34F26]/20 text-[#E34F26] text-xs font-bold uppercase tracking-wider mb-3 border border-[#E34F26]/30">
+                  Section {activeSection + 1} of {courseSections.length}
+                </span>
+                {courseSections[activeSection].content}
+              </div>
             </div>
+            <Footer />
           </div>
 
           {/* Bottom Navigation Bar */}
@@ -691,6 +705,13 @@ const HomeDashboardView = ({ onSelectCourse }) => {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      {/* Global Footer */}
+      <div className="px-6 md:px-12">
+        <div className="max-w-6xl mx-auto">
+          <Footer />
         </div>
       </div>
     </div>
