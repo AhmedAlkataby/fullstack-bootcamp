@@ -265,10 +265,10 @@ const courseSections = [
         
         <CodeBlock code={`<form action="/action_page.php">
   <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
+  <input type="text" id="fname" name="fname" value="Ahmed"><br>
   
   <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="text" id="lname" name="lname" value="Al-Kataby"><br><br>
   
   <input type="submit" value="Submit">
 </form>`} />
