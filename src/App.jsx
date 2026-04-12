@@ -545,13 +545,6 @@ const CourseView = ({ title, sections, theme, onBack }) => {
               })}
             </nav>
           </div>
-
-          {/* Sidebar Footer always visible */}
-          <div className="p-4 border-t border-gray-700 bg-gray-900/50 text-center mt-auto">
-            <p className="text-gray-500 text-[11px] font-medium tracking-wide">
-              &copy; {new Date().getFullYear()} Ahmed Al-kataby.
-            </p>
-          </div>
         </aside>
 
         {isSidebarOpen && (
