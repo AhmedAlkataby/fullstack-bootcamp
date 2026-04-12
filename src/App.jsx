@@ -11,7 +11,7 @@ const CodeBlock = ({ code }) => (
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
       </div>
-      <span className="ml-4 text-xs text-gray-400 font-mono">example.html</span>
+      <span className="ml-4 text-xs text-gray-400 font-mono">style.css</span>
     </div>
     <div className="p-4 overflow-x-auto">
       <pre className="text-sm font-mono text-gray-300">
@@ -26,15 +26,14 @@ const Footer = () => {
   return (
     <footer className="mt-12 py-8 border-t border-slate-800/60 text-center">
       <p className="text-slate-500 text-sm font-medium">
-        &copy; {currentYear} Ahmed Al-Kataby. All rights reserved.
+        &copy; {currentYear} Ahmed Al-kataby. All rights reserved.
       </p>
     </footer>
   );
 };
 
 // --- COURSE DATA ---
-
-const courseSections = [
+const htmlCourseSections = [
   {
     id: 'intro',
     title: '1. Introduction to HTML',
@@ -288,20 +287,153 @@ const courseSections = [
   }
 ];
 
+const cssCourseSections = [
+  {
+    id: 'css_intro',
+    title: '1. CSS Intro & Syntax',
+    time: '5 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">CSS Introduction</h2>
+        <p className="text-gray-300 text-lg">CSS stands for Cascading Style Sheets. It describes how HTML elements are to be displayed on screen, paper, or in other media. It saves a lot of work by controlling the layout of multiple web pages all at once.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">CSS Syntax</h3>
+        <p className="text-gray-300">A CSS rule consists of a selector and a declaration block.</p>
+        <CodeBlock code={`/* Selector { Property: Value; } */\n\nh1 {\n  color: blue;\n  text-align: center;\n}`} />
+        
+        <div className="bg-blue-900/30 border-l-4 border-blue-500 p-4 mt-6 rounded-r-md">
+          <h4 className="font-bold text-blue-300">Code Explained:</h4>
+          <ul className="list-disc ml-5 mt-2 space-y-1 text-blue-200 text-sm">
+            <li><code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">h1</code> is the <strong>selector</strong> (points to the HTML element you want to style).</li>
+            <li><code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">color</code> is a <strong>property</strong>, and <code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">blue</code> is the <strong>value</strong>.</li>
+            <li><code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">text-align</code> is a <strong>property</strong>, and <code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">center</code> is the <strong>value</strong>.</li>
+          </ul>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'css_selectors',
+    title: '2. Selectors & Colors',
+    time: '10 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Selectors & Colors</h2>
+        <p className="text-gray-300 text-lg">CSS selectors are used to "find" (or select) the HTML elements you want to style.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The Element, Id, and Class Selectors</h3>
+        <CodeBlock code={`/* Element Selector */\np {\n  color: red;\n}\n\n/* ID Selector (uses #) */\n#main-title {\n  color: green;\n}\n\n/* Class Selector (uses .) */\n.highlight {\n  color: blue;\n}`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">CSS Colors</h3>
+        <p className="text-gray-300">Colors can be specified using predefined names, RGB, HEX, HSL, RGBA, or HSLA values.</p>
+        <CodeBlock code={`h1 {\n  background-color: DodgerBlue; /* Name */\n}\n\nh2 {\n  color: #ff0000; /* HEX */\n}\n\np {\n  color: rgb(255, 0, 0); /* RGB */\n}`} />
+      </div>
+    )
+  },
+  {
+    id: 'css_boxmodel',
+    title: '3. The Box Model',
+    time: '10 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">The CSS Box Model</h2>
+        <p className="text-gray-300 text-lg">All HTML elements can be considered as boxes. The CSS box model is essentially a box that wraps around every HTML element.</p>
+        
+        <div className="my-6 p-8 bg-gray-800 border-4 border-dashed border-gray-600 rounded-lg text-center relative">
+          <span className="absolute top-2 left-2 text-xs text-gray-400">Margin</span>
+          <div className="p-6 bg-blue-900/50 border-4 border-blue-500 rounded-lg relative">
+            <span className="absolute top-2 left-2 text-xs text-blue-300">Border</span>
+            <div className="p-6 bg-emerald-900/50 rounded-lg relative">
+              <span className="absolute top-2 left-2 text-xs text-emerald-300">Padding</span>
+              <div className="p-4 bg-white text-black font-bold rounded">
+                Content Area
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <CodeBlock code={`div {\n  width: 300px;\n  border: 5px solid green;\n  padding: 20px;\n  margin: 20px;\n}`} />
+        
+        <ul className="list-disc ml-5 mt-2 space-y-2 text-gray-300 text-sm">
+          <li><strong>Content</strong> - The content of the box, where text and images appear</li>
+          <li><strong>Padding</strong> - Clears an area around the content. The padding is transparent</li>
+          <li><strong>Border</strong> - A border that goes around the padding and content</li>
+          <li><strong>Margin</strong> - Clears an area outside the border. The margin is transparent</li>
+        </ul>
+      </div>
+    )
+  },
+  {
+    id: 'css_typography',
+    title: '4. Text & Typography',
+    time: '5 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Text & Fonts</h2>
+        <p className="text-gray-300 text-lg">CSS provides a lot of properties to format and style text.</p>
+        
+        <CodeBlock code={`p {\n  color: #333;\n  font-family: "Helvetica Neue", Arial, sans-serif;\n  font-size: 16px;\n  font-weight: bold;\n  line-height: 1.6;\n  text-align: justify;\n  text-decoration: none;\n  text-transform: uppercase;\n}`} />
+
+        <div className="bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mt-6 rounded-r-md">
+          <p className="text-yellow-300"><strong>Tip:</strong> Always provide fallback fonts in the <code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">font-family</code> property, separated by commas, in case the user doesn't have the first font installed.</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'css_flexbox',
+    title: '5. Flexbox Layout',
+    time: '10 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">CSS Flexbox</h2>
+        <p className="text-gray-300 text-lg">The Flexible Box Layout Module makes it easier to design flexible responsive layout structures without using float or positioning.</p>
+        
+        <CodeBlock code={`.flex-container {\n  display: flex;\n  justify-content: center; /* Horizontally centers items */\n  align-items: center;     /* Vertically centers items */\n  flex-direction: row;     /* Aligns items in a row (default) */\n  gap: 20px;               /* Adds space between items */\n}\n\n.flex-item {\n  background-color: #f1f1f1;\n  padding: 20px;\n}`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Common Justify-Content Values</h3>
+        <ul className="list-disc ml-5 mt-2 space-y-1 text-gray-300 text-sm">
+          <li><code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">flex-start</code> - Items aligned to the start</li>
+          <li><code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">flex-end</code> - Items aligned to the end</li>
+          <li><code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">center</code> - Items aligned to the center</li>
+          <li><code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">space-between</code> - Items distributed with equal spacing between them</li>
+        </ul>
+      </div>
+    )
+  },
+  {
+    id: 'css_responsive',
+    title: '6. Responsive Design',
+    time: '5 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Responsive Web Design</h2>
+        <p className="text-gray-300 text-lg">Responsive web design makes your web page look good on all devices. It uses HTML and CSS to automatically resize, hide, shrink, or enlarge a website.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Media Queries</h3>
+        <p className="text-gray-300">Media queries can completely change styles based on the device's width.</p>
+        
+        <CodeBlock code={`/* Default style (e.g., Desktop) */\nbody {\n  background-color: lightblue;\n}\n\n/* On screens that are 600px wide or less, change background to olive */\n@media screen and (max-width: 600px) {\n  body {\n    background-color: olive;\n  }\n}`} />
+      </div>
+    )
+  }
+];
+
 // --- VIEWS ---
 
-const Html5CourseView = ({ onBack }) => {
+// Unified Course View Component
+const CourseView = ({ title, sections, theme, onBack }) => {
   const [activeSection, setActiveSection] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [completedSections, setCompletedSections] = useState([]);
 
-  const progress = Math.round((completedSections.length / courseSections.length) * 100);
+  const progress = Math.round((completedSections.length / sections.length) * 100);
 
   const handleNext = () => {
     if (!completedSections.includes(activeSection)) {
       setCompletedSections([...completedSections, activeSection]);
     }
-    if (activeSection < courseSections.length - 1) {
+    if (activeSection < sections.length - 1) {
       setActiveSection(activeSection + 1);
       window.scrollTo(0, 0);
     }
@@ -317,44 +449,44 @@ const Html5CourseView = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col font-sans">
       {/* Top Navbar */}
-      <nav className="bg-[#E34F26] text-white shadow-md sticky top-0 z-30">
+      <nav className={`${theme.bg} text-white shadow-md sticky top-0 z-30 transition-colors duration-300`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-3">
               <button 
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="md:hidden p-2 rounded-md hover:bg-orange-700 focus:outline-none transition-colors"
+                className={`md:hidden p-2 rounded-md ${theme.navHover} focus:outline-none transition-colors`}
               >
                 {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
               
               <button 
                 onClick={onBack}
-                className="hidden md:flex items-center space-x-1 p-2 rounded-md hover:bg-orange-700 transition-colors mr-2"
+                className={`hidden md:flex items-center space-x-1 p-2 rounded-md ${theme.navHover} transition-colors mr-2`}
                 title="Back to Dashboard"
               >
                 <ArrowLeft size={20} />
               </button>
 
-              <div className="flex items-center space-x-2 border-l border-orange-500 pl-4">
-                <Code size={24} className="text-orange-200" />
-                <span className="font-bold text-lg sm:text-xl tracking-tight">HTML5 Crash Course</span>
+              <div className={`flex items-center space-x-2 border-l ${theme.borderLight} pl-4`}>
+                <Code size={24} className="text-white/80" />
+                <span className="font-bold text-lg sm:text-xl tracking-tight">{title}</span>
               </div>
             </div>
             
             <div className="flex items-center space-x-4">
               <div className="hidden sm:flex flex-col items-end">
-                <span className="text-xs text-orange-200 font-medium">Progress</span>
-                <div className="w-24 md:w-32 bg-orange-800 rounded-full h-2.5 mt-1 overflow-hidden">
-                  <div className="bg-orange-300 h-2.5 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
+                <span className="text-xs text-white/80 font-medium">Progress</span>
+                <div className={`w-24 md:w-32 ${theme.progressBg} rounded-full h-2.5 mt-1 overflow-hidden`}>
+                  <div className={`${theme.progressFill} h-2.5 rounded-full transition-all duration-500`} style={{ width: `${progress}%` }}></div>
                 </div>
               </div>
-              <span className="text-sm font-bold bg-orange-800 px-3 py-1 rounded-full shadow-sm">{progress}%</span>
+              <span className={`text-sm font-bold ${theme.badgeBg} px-3 py-1 rounded-full shadow-sm`}>{progress}%</span>
               
               {/* Mobile Back Button */}
               <button 
                 onClick={onBack}
-                className="md:hidden p-2 rounded-md hover:bg-orange-700 transition-colors"
+                className={`md:hidden p-2 rounded-md ${theme.navHover} transition-colors`}
               >
                 <ArrowLeft size={20} />
               </button>
@@ -381,7 +513,7 @@ const Html5CourseView = ({ onBack }) => {
           </div>
           <div className="flex-1 overflow-y-auto py-2">
             <nav className="space-y-1 px-3">
-              {courseSections.map((section, index) => {
+              {sections.map((section, index) => {
                 const isActive = index === activeSection;
                 const isCompleted = completedSections.includes(index);
                 
@@ -394,14 +526,14 @@ const Html5CourseView = ({ onBack }) => {
                     }}
                     className={`
                       w-full flex items-center justify-between px-3 py-3 text-left rounded-lg transition-colors
-                      ${isActive ? 'bg-[#E34F26]/20 text-[#E34F26] font-semibold' : 'text-gray-300 hover:bg-gray-700/50'}
+                      ${isActive ? `${theme.lightBg} ${theme.text} font-semibold` : 'text-gray-300 hover:bg-gray-700/50'}
                     `}
                   >
                     <div className="flex items-center overflow-hidden">
                       {isCompleted ? (
-                        <CheckCircle2 size={16} className="text-[#E34F26] mr-2 flex-shrink-0" />
+                        <CheckCircle2 size={16} className={`${theme.text} mr-2 flex-shrink-0`} />
                       ) : isActive ? (
-                        <Play size={14} className="text-[#E34F26] mr-2 flex-shrink-0 fill-current" />
+                        <Play size={14} className={`${theme.text} mr-2 flex-shrink-0 fill-current`} />
                       ) : (
                         <div className="w-4 h-4 mr-2 flex-shrink-0 rounded-full border-2 border-gray-600" />
                       )}
@@ -412,6 +544,13 @@ const Html5CourseView = ({ onBack }) => {
                 );
               })}
             </nav>
+          </div>
+
+          {/* Sidebar Footer always visible */}
+          <div className="p-4 border-t border-gray-700 bg-gray-900/50 text-center mt-auto">
+            <p className="text-gray-500 text-[11px] font-medium tracking-wide">
+              &copy; {new Date().getFullYear()} Ahmed Al-kataby.
+            </p>
           </div>
         </aside>
 
@@ -424,15 +563,16 @@ const Html5CourseView = ({ onBack }) => {
 
         {/* Content Panel */}
         <main className="flex-1 overflow-y-auto bg-gray-900 flex flex-col">
-          <div className="flex-1 max-w-4xl mx-auto w-full p-6 md:p-10 pb-24">
+          <div className="flex-1 max-w-4xl mx-auto w-full p-6 md:p-10 pb-16 flex flex-col justify-between">
             <div>
               <div className="mb-8">
-                <span className="inline-block py-1 px-3 rounded-full bg-[#E34F26]/20 text-[#E34F26] text-xs font-bold uppercase tracking-wider mb-3 border border-[#E34F26]/30">
-                  Section {activeSection + 1} of {courseSections.length}
+                <span className={`inline-block py-1 px-3 rounded-full ${theme.lightBg} ${theme.text} text-xs font-bold uppercase tracking-wider mb-3 border ${theme.borderLight}`}>
+                  Section {activeSection + 1} of {sections.length}
                 </span>
-                {courseSections[activeSection].content}
+                {sections[activeSection].content}
               </div>
             </div>
+            
             <Footer />
           </div>
 
@@ -453,10 +593,10 @@ const Html5CourseView = ({ onBack }) => {
               
               <button
                 onClick={handleNext}
-                className="flex items-center px-6 py-2.5 bg-[#E34F26] text-white rounded-md font-medium hover:bg-[#c9431e] shadow-sm transition-colors"
+                className={`flex items-center px-6 py-2.5 ${theme.bg} text-white rounded-md font-medium ${theme.hoverBg} shadow-sm transition-colors`}
               >
-                {activeSection === courseSections.length - 1 ? 'Finish Course' : 'Next Lesson'}
-                {activeSection !== courseSections.length - 1 && <ChevronRight size={18} className="ml-1" />}
+                {activeSection === sections.length - 1 ? 'Finish Course' : 'Next Lesson'}
+                {activeSection !== sections.length - 1 && <ChevronRight size={18} className="ml-1" />}
               </button>
             </div>
           </div>
@@ -488,7 +628,7 @@ const HomeDashboardView = ({ onSelectCourse }) => {
     {
       id: 'css3',
       name: 'CSS3',
-      description: 'Learn to style and layout beautiful web pages.',
+      description: 'Learn to style, color, and layout beautiful web pages.',
       tags: ['Frontend', 'Beginner'],
       logo: (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-12 h-12">
@@ -498,7 +638,8 @@ const HomeDashboardView = ({ onSelectCourse }) => {
         </svg>
       ),
       hoverEffect: 'hover:border-[#1572B6] hover:shadow-[0_8px_30px_rgba(21,114,182,0.2)]',
-      status: 'coming_soon'
+      status: 'available',
+      time: '45 mins'
     },
     {
       id: 'js',
@@ -576,138 +717,141 @@ const HomeDashboardView = ({ onSelectCourse }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white p-6 md:p-12 font-sans overflow-x-hidden selection:bg-indigo-500/30">
-      <div className="max-w-6xl mx-auto relative">
-        
-        {/* Improved Hero Header Section */}
-        <header className="relative mb-16 mt-4 p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-slate-800/60 bg-slate-900/40 shadow-2xl">
-          {/* Background Atmospheric Glows */}
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-indigo-600/20 blur-[80px] pointer-events-none"></div>
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-cyan-600/20 blur-[80px] pointer-events-none"></div>
+    <div className="min-h-screen flex flex-col bg-[#0f172a] text-white font-sans overflow-x-hidden selection:bg-indigo-500/30">
+      <div className="flex-grow p-6 md:p-12">
+        <div className="max-w-6xl mx-auto relative">
           
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
-                  <LayoutTemplate className="text-indigo-400 w-8 h-8" />
-                </div>
-                <div className="flex items-center px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-sm font-medium text-slate-300">
-                  <Sparkles size={14} className="text-yellow-400 mr-2" />
-                  Interactive Learning
-                </div>
-              </div>
-              
-              <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight mb-4">
-                Full-Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">Bootcamp</span>
-              </h1>
-              
-              <p className="text-slate-400 text-lg md:text-xl max-w-xl leading-relaxed">
-                Select a course to start learning. Master the fundamentals of frontend and backend web development step-by-step through interactive lessons.
-              </p>
-            </div>
+          {/* Improved Hero Header Section */}
+          <header className="relative mb-16 mt-4 p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-slate-800/60 bg-slate-900/40 shadow-2xl">
+            {/* Background Atmospheric Glows */}
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-indigo-600/20 blur-[80px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full bg-cyan-600/20 blur-[80px] pointer-events-none"></div>
             
-            {/* Stats/Summary Box */}
-            <div className="hidden lg:flex flex-col gap-4 p-6 rounded-2xl bg-slate-800/50 border border-slate-700 backdrop-blur-sm min-w-[200px]">
-              <div>
-                <p className="text-sm text-slate-400 mb-1">Total Courses</p>
-                <p className="text-3xl font-bold text-white">6</p>
-              </div>
-              <div className="w-full h-px bg-slate-700"></div>
-              <div>
-                <p className="text-sm text-slate-400 mb-1">Your Progress</p>
-                <div className="flex items-center gap-3 mt-1">
-                  <div className="flex-1 h-2 rounded-full bg-slate-700 overflow-hidden">
-                    <div className="w-0 h-full bg-indigo-500 rounded-full"></div>
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+              <div className="max-w-2xl">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="p-3 bg-indigo-500/10 rounded-2xl border border-indigo-500/20">
+                    <LayoutTemplate className="text-indigo-400 w-8 h-8" />
                   </div>
-                  <span className="text-sm font-bold">0%</span>
+                  <div className="flex items-center px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-sm font-medium text-slate-300">
+                    <Sparkles size={14} className="text-yellow-400 mr-2" />
+                    Interactive Learning
+                  </div>
+                </div>
+                
+                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight mb-4">
+                  Full-Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">Bootcamp</span>
+                </h1>
+                
+                <p className="text-slate-400 text-lg md:text-xl max-w-xl leading-relaxed">
+                  Select a course to start learning. Master the fundamentals of frontend and backend web development step-by-step through interactive lessons.
+                </p>
+              </div>
+              
+              {/* Stats/Summary Box */}
+              <div className="hidden lg:flex flex-col gap-4 p-6 rounded-2xl bg-slate-800/50 border border-slate-700 backdrop-blur-sm min-w-[200px]">
+                <div>
+                  <p className="text-sm text-slate-400 mb-1">Total Courses</p>
+                  <p className="text-3xl font-bold text-white">6</p>
+                </div>
+                <div className="w-full h-px bg-slate-700"></div>
+                <div>
+                  <p className="text-sm text-slate-400 mb-1">Your Progress</p>
+                  <div className="flex items-center gap-3 mt-1">
+                    <div className="flex-1 h-2 rounded-full bg-slate-700 overflow-hidden">
+                      <div className="w-0 h-full bg-indigo-500 rounded-full"></div>
+                    </div>
+                    <span className="text-sm font-bold">0%</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-        {/* Enhanced Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allCourses.map((course) => {
-            const isAvailable = course.status === 'available';
-            
-            return (
-              <div 
-                key={course.id}
-                onClick={() => isAvailable && onSelectCourse(course.id)}
-                className={`group relative flex flex-col h-full overflow-hidden rounded-3xl border transition-all duration-500 ease-out
-                  ${isAvailable 
-                    ? 'cursor-pointer hover:-translate-y-2 bg-slate-800/40 border-slate-700 hover:bg-slate-800 ' + course.hoverEffect 
-                    : 'cursor-not-allowed opacity-75 bg-slate-900/30 border-slate-800 grayscale-[0.3]'
-                  }
-                  backdrop-blur-md
-                `}
-              >
-                {/* Course Content Area */}
-                <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10">
-                  
-                  {/* Top Row: Logo & Tags */}
-                  <div className="flex justify-between items-start mb-6">
-                    <div className={`
-                      w-16 h-16 rounded-2xl flex items-center justify-center bg-slate-900/50 border border-slate-700/50 shadow-lg transition-transform duration-500
-                      ${isAvailable ? 'group-hover:scale-110 group-hover:rotate-3' : ''}
-                    `}>
-                      {course.logo}
-                    </div>
+          {/* Enhanced Course Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allCourses.map((course) => {
+              const isAvailable = course.status === 'available';
+              
+              return (
+                <div 
+                  key={course.id}
+                  onClick={() => isAvailable && onSelectCourse(course.id)}
+                  className={`group relative flex flex-col h-full overflow-hidden rounded-3xl border transition-all duration-500 ease-out
+                    ${isAvailable 
+                      ? 'cursor-pointer hover:-translate-y-2 bg-slate-800/40 border-slate-700 hover:bg-slate-800 ' + course.hoverEffect 
+                      : 'cursor-not-allowed opacity-75 bg-slate-900/30 border-slate-800 grayscale-[0.3]'
+                    }
+                    backdrop-blur-md
+                  `}
+                >
+                  {/* Course Content Area */}
+                  <div className="p-6 md:p-8 flex flex-col flex-grow relative z-10">
+                    
+                    {/* Top Row: Logo & Tags */}
+                    <div className="flex justify-between items-start mb-6">
+                      <div className={`
+                        w-16 h-16 rounded-2xl flex items-center justify-center bg-slate-900/50 border border-slate-700/50 shadow-lg transition-transform duration-500
+                        ${isAvailable ? 'group-hover:scale-110 group-hover:rotate-3' : ''}
+                      `}>
+                        {course.logo}
+                      </div>
 
-                    <div className="flex flex-col items-end gap-2">
-                      {isAvailable ? (
-                        <span className="bg-emerald-500/10 text-emerald-400 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full border border-emerald-500/20 shadow-sm">
-                          Available
-                        </span>
-                      ) : (
-                        <span className="flex items-center bg-slate-800 text-slate-400 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full border border-slate-700">
-                          <Lock size={10} className="mr-1" /> Locked
-                        </span>
-                      )}
-                      
-                      {/* Category Tags */}
-                      <div className="flex gap-1.5">
-                        {course.tags.map(tag => (
-                          <span key={tag} className="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-medium">
-                            {tag}
+                      <div className="flex flex-col items-end gap-2">
+                        {isAvailable ? (
+                          <span className="bg-emerald-500/10 text-emerald-400 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full border border-emerald-500/20 shadow-sm">
+                            Available
                           </span>
-                        ))}
+                        ) : (
+                          <span className="flex items-center bg-slate-800 text-slate-400 text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full border border-slate-700">
+                            <Lock size={10} className="mr-1" /> Locked
+                          </span>
+                        )}
+                        
+                        {/* Category Tags */}
+                        <div className="flex gap-1.5">
+                          {course.tags.map(tag => (
+                            <span key={tag} className="text-[10px] px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 font-medium">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Text Content */}
-                  <div className="flex-grow">
-                    <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{course.name}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{course.description}</p>
-                  </div>
-                  
-                  {/* Bottom Action Area */}
-                  <div className="mt-8 pt-4 border-t border-slate-700/50 flex items-center justify-between">
-                    <div className="flex items-center text-sm font-medium text-slate-400">
-                      <Clock size={16} className="mr-2 opacity-70" /> 
-                      {course.time}
+                    {/* Text Content */}
+                    <div className="flex-grow">
+                      <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{course.name}</h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">{course.description}</p>
                     </div>
                     
-                    {isAvailable && (
-                      <div className="flex items-center text-sm font-bold text-indigo-400 transition-transform duration-300 group-hover:translate-x-1">
-                        Start <ChevronRight size={18} className="ml-1" />
+                    {/* Bottom Action Area */}
+                    <div className="mt-8 pt-4 border-t border-slate-700/50 flex items-center justify-between">
+                      <div className="flex items-center text-sm font-medium text-slate-400">
+                        <Clock size={16} className="mr-2 opacity-70" /> 
+                        {course.time}
                       </div>
-                    )}
+                      
+                      {isAvailable && (
+                        <div className="flex items-center text-sm font-bold text-indigo-400 transition-transform duration-300 group-hover:translate-x-1">
+                          Start <ChevronRight size={18} className="ml-1" />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                {/* Subtle Hover Gradient Overlay */}
-                {isAvailable && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                )}
-              </div>
-            );
-          })}
+                  {/* Subtle Hover Gradient Overlay */}
+                  {isAvailable && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
         </div>
       </div>
-
+      
       {/* Global Footer */}
       <div className="px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
@@ -721,14 +865,37 @@ const HomeDashboardView = ({ onSelectCourse }) => {
 // --- MAIN APP CONTROLLER ---
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home'); // 'home' | 'html5'
+  // 'home' | 'html5' | 'css3'
+  const [currentView, setCurrentView] = useState('home'); 
 
-  // Effect to update Document Title and Favicon dynamically on load
+  // Dynamic themes matching official brand colors
+  const themes = {
+    html5: {
+      bg: 'bg-[#E34F26]',
+      text: 'text-[#E34F26]',
+      borderLight: 'border-[#E34F26]/30',
+      lightBg: 'bg-[#E34F26]/20',
+      hoverBg: 'hover:bg-[#c9431e]',
+      navHover: 'hover:bg-orange-700',
+      progressBg: 'bg-orange-800',
+      progressFill: 'bg-orange-300',
+      badgeBg: 'bg-orange-800'
+    },
+    css3: {
+      bg: 'bg-[#1572B6]',
+      text: 'text-[#1572B6]',
+      borderLight: 'border-[#1572B6]/30',
+      lightBg: 'bg-[#1572B6]/20',
+      hoverBg: 'hover:bg-[#115b93]',
+      navHover: 'hover:bg-blue-700',
+      progressBg: 'bg-blue-800',
+      progressFill: 'bg-blue-300',
+      badgeBg: 'bg-blue-800'
+    }
+  };
+
   useEffect(() => {
-    // 1. Set the Title
     document.title = "Full-Stack Bootcamp";
-
-    // 2. Set the dynamic SVG Favicon
     const svgFavicon = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>`;
     
     let link = document.querySelector("link[rel~='icon']");
@@ -741,7 +908,25 @@ export default function App() {
   }, []);
 
   if (currentView === 'html5') {
-    return <Html5CourseView onBack={() => setCurrentView('home')} />;
+    return (
+      <CourseView 
+        title="HTML5 Crash Course" 
+        sections={htmlCourseSections} 
+        theme={themes.html5}
+        onBack={() => setCurrentView('home')} 
+      />
+    );
+  }
+
+  if (currentView === 'css3') {
+    return (
+      <CourseView 
+        title="CSS3 Crash Course" 
+        sections={cssCourseSections} 
+        theme={themes.css3}
+        onBack={() => setCurrentView('home')} 
+      />
+    );
   }
 
   return <HomeDashboardView onSelectCourse={setCurrentView} />;
