@@ -419,6 +419,107 @@ const cssCourseSections = [
   }
 ];
 
+const jsCourseSections = [
+  {
+    id: 'js_intro',
+    title: '1. JS Engine & Output',
+    time: '15 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">JavaScript Environment</h2>
+        <p className="text-gray-300 text-lg">JavaScript is a single-threaded, non-blocking, asynchronous programming language. It is executed by engines like V8 (Chrome) and SpiderMonkey (Firefox).</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Loading Scripts Properly</h3>
+        <p className="text-gray-300">Where you place your JS matters. Modern applications use the <code className="text-[#F7DF1E] bg-gray-800 px-1 py-0.5 rounded">defer</code> attribute in the head tag to prevent render-blocking.</p>
+        <CodeBlock filename="index.html" code={`<head>\n  <!-- Downloads asynchronously, executes AFTER HTML is parsed -->\n  <script src="app.js" defer></script>\n</head>`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Console Mastery</h3>
+        <p className="text-gray-300">The console is your primary debugging tool. It can do more than just log strings.</p>
+        <CodeBlock filename="script.js" code={`console.log("Standard output");\nconsole.warn("This is a warning!");\nconsole.error("Critical failure!");\n\nconst user = { id: 1, name: "Ali" };\nconsole.table(user); // Displays objects/arrays as a neat table`} />
+      </div>
+    )
+  },
+  {
+    id: 'js_variables',
+    title: '2. Deep Data Types & Variables',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Variables, Objects, and Arrays</h2>
+        <p className="text-gray-300 text-lg">JavaScript is dynamically typed. We strictly use <code className="text-[#F7DF1E] bg-gray-800 px-1 py-0.5 rounded">let</code> and <code className="text-[#F7DF1E] bg-gray-800 px-1 py-0.5 rounded">const</code> (avoiding the outdated <code className="text-[#F7DF1E] bg-gray-800 px-1 py-0.5 rounded">var</code> to prevent scoping bugs).</p>
+        
+        <CodeBlock filename="script.js" code={`// Const requires immediate initialization.\n// It prevents variable reassignment, NOT object mutation.\nconst config = { theme: "dark" };\nconfig.theme = "light"; // Valid! The object properties can mutate.\n// config = {} // ERROR: Assignment to constant variable.\n\nlet counter = 0;\ncounter++; // Valid reassignment`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Template Literals & Destructuring</h3>
+        <p className="text-gray-300">ES6 introduced powerful syntax for string interpolation and unpacking data structures.</p>
+        
+        <CodeBlock filename="script.js" code={`const user = { firstName: "Sara", age: 28, role: "Admin" };\n\n// Destructuring extraction\nconst { firstName, role } = user;\n\n// Template Literals (Backticks)\nconst greeting = \`Welcome back \${firstName}, your role is \${role}.\`;\nconsole.log(greeting);\n\n// Array Manipulation\nconst numbers = [10, 20, 30];\nnumbers.push(40);     // Adds to end\nconst first = numbers.shift(); // Removes from beginning`} />
+      </div>
+    )
+  },
+  {
+    id: 'js_functions',
+    title: '3. Functions & Lexical Scope',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Advanced Functions & Scope</h2>
+        <p className="text-gray-300 text-lg">In JavaScript, functions are "First-Class Citizens"—they can be passed as arguments, returned from other functions, and assigned to variables.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Arrow Functions & Implicit Returns</h3>
+        <CodeBlock filename="script.js" code={`// Standard Function Declaration (Hoisted - can be called before defined)\nfunction calculateArea(w, h) {\n  return w * h;\n}\n\n// Arrow Function Expression (Lexical 'this' binding)\nconst getSquare = (n) => n * n; // Implicit return for single-line operations\n\n// Array Methods using Callbacks\nconst prices = [10, 20, 30];\nconst taxes = prices.map(price => price * 0.15);\n// Result: [1.5, 3, 4.5]`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Block Scope</h3>
+        <p className="text-gray-300">Variables declared with <code className="bg-gray-800 px-1 py-0.5 rounded">let</code> and <code className="bg-gray-800 px-1 py-0.5 rounded">const</code> exist only within the curly braces <code className="bg-gray-800 px-1 py-0.5 rounded">{ }</code> they were defined in.</p>
+        <CodeBlock filename="script.js" code={`const globalVar = "I am everywhere";\n\nif (true) {\n  const blockVar = "I am trapped inside this if-statement";\n  console.log(globalVar); // Works\n}\n\n// console.log(blockVar); // ReferenceError: blockVar is not defined`} />
+      </div>
+    )
+  },
+  {
+    id: 'js_events',
+    title: '4. The Event Loop & Listeners',
+    time: '15 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Advanced DOM Events</h2>
+        <p className="text-gray-300 text-lg">Interaction on the web is driven by the event loop. Understanding the Event Object and Event Bubbling is critical for modern web apps.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The Event Object & PreventDefault</h3>
+        <p className="text-gray-300">When an event occurs, JS passes an <code className="bg-gray-800 px-1 py-0.5 rounded">event</code> object containing data about the interaction.</p>
+        <CodeBlock filename="script.js" code={`const form = document.querySelector("#loginForm");\n\nform.addEventListener("submit", (e) => {\n  // Stops the form from reloading the page entirely\n  e.preventDefault(); \n  \n  console.log("Form submitted via JS instead!");\n  console.log("Target Element:", e.target);\n});`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Event Bubbling</h3>
+        <p className="text-gray-300">Events bubble up from the target element to its parents. You can stop this with <code className="bg-gray-800 px-1 py-0.5 rounded">e.stopPropagation()</code>.</p>
+        <CodeBlock filename="script.js" code={`document.querySelector(".child-button").addEventListener("click", (e) => {\n  e.stopPropagation(); // Prevents the parent 'div' from registering the click\n  console.log("Only the button click fires.");\n});`} />
+      </div>
+    )
+  },
+  {
+    id: 'js_dom',
+    title: '5. DOM Manipulation API',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">The HTML Document Object Model</h2>
+        <p className="text-gray-300 text-lg">The DOM translates HTML into a tree of JavaScript objects. You can programmatically create, read, update, and delete these nodes using various methods.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Legacy vs Modern Element Querying</h3>
+        <p className="text-gray-300">Before <code className="text-[#F7DF1E] bg-gray-800 px-1 py-0.5 rounded">querySelector</code> existed, developers relied on specific tag, class, and ID getters. Understanding these is crucial for reading older codebases.</p>
+        <CodeBlock filename="script.js" code={`// 1. By ID (Returns exactly one element object)\nconst header = document.getElementById("main-header");\n\n// 2. By Class Name (Returns a live HTMLCollection)\n// Note: Array methods like .forEach() do NOT work directly on HTMLCollections\nconst activeTabs = document.getElementsByClassName("active-tab");\n\n// 3. By Tag Name (Returns a live HTMLCollection)\nconst allParagraphs = document.getElementsByTagName("p");\n\n// 4. Modern Approach (Returns a static NodeList, supports .forEach)\nconst allButtons = document.querySelectorAll(".btn");\nallButtons.forEach(btn => btn.disabled = false);`} />
+        
+        <div className="bg-yellow-900/30 border-l-4 border-yellow-500 p-4 mt-6 rounded-r-md">
+          <h4 className="font-bold text-yellow-300">HTMLCollection vs NodeList</h4>
+          <p className="text-yellow-200 text-sm mt-2">When you use <code className="bg-gray-800 px-1 py-0.5 rounded">getElementsByClassName</code> or <code className="bg-gray-800 px-1 py-0.5 rounded">getElementsByTagName</code>, you get an <strong>HTMLCollection</strong>. If you add a new element with that class via JS later, the collection updates automatically! A <strong>NodeList</strong> from <code className="bg-gray-800 px-1 py-0.5 rounded">querySelectorAll</code> is static and will not automatically update.</p>
+        </div>
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Creating & Mutating Elements</h3>
+        <p className="text-gray-300">Building UI elements securely through JavaScript logic.</p>
+        <CodeBlock filename="script.js" code={`// 1. Create a new memory node\nconst newDiv = document.createElement("div");\n\n// 2. Manipulate its classes safely\nnewDiv.classList.add("card", "active");\nnewDiv.classList.remove("hidden");\n\n// 3. Add text content (safer than innerHTML to prevent XSS attacks)\nnewDiv.textContent = "I was created dynamically!";\n\n// 4. Inject it into the live DOM\ndocument.body.appendChild(newDiv);`} />
+      </div>
+    )
+  }
+];
+
 // --- VIEWS ---
 
 // Unified Course View Component
@@ -647,7 +748,8 @@ const HomeDashboardView = ({ onSelectCourse }) => {
         </svg>
       ),
       hoverEffect: 'hover:border-[#F7DF1E] hover:shadow-[0_8px_30px_rgba(247,223,30,0.2)]',
-      status: 'coming_soon'
+      status: 'available',
+      time: '1h 30m'
     },
     {
       id: 'react',
@@ -884,6 +986,18 @@ export default function App() {
       progressBg: 'bg-blue-800',
       progressFill: 'bg-blue-300',
       badgeBg: 'bg-blue-800'
+    },
+    js: {
+      bg: 'bg-[#F7DF1E]',
+      text: 'text-[#F7DF1E]',
+      navText: 'text-black', // JS Yellow needs dark text for readability
+      borderLight: 'border-[#F7DF1E]/30',
+      lightBg: 'bg-[#F7DF1E]/10',
+      hoverBg: 'hover:bg-[#d4be10]',
+      navHover: 'hover:bg-yellow-500/40',
+      progressBg: 'bg-yellow-800/20',
+      progressFill: 'bg-black',
+      badgeBg: 'bg-black text-[#F7DF1E]'
     }
   };
 
@@ -917,6 +1031,18 @@ export default function App() {
         title="CSS3 Crash Course" 
         sections={cssCourseSections} 
         theme={themes.css3}
+        onBack={() => setCurrentView('home')} 
+      />
+    );
+  }
+
+  if (currentView === 'js') {
+    return (
+      <CourseView 
+        title="JavaScript Crash Course" 
+        sections={jsCourseSections} 
+        theme={themes.js}
+        totalTime="1h 30m"
         onBack={() => setCurrentView('home')} 
       />
     );
