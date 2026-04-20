@@ -520,6 +520,114 @@ const jsCourseSections = [
   }
 ];
 
+const reactCourseSections = [
+  {
+    id: 'react_intro',
+    title: '1. React Intro & JSX',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">React & JSX</h2>
+        <p className="text-gray-300 text-lg">React is a JavaScript library for building user interfaces. It creates a Virtual DOM in memory to perform fast updates. JSX allows us to write HTML directly inside JavaScript.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The Magic of JSX</h3>
+        <p className="text-gray-300">JSX is stricter than HTML. Tags must be closed, and you must use <code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">className</code> instead of <code className="text-gray-300 bg-gray-800 px-1 py-0.5 rounded">class</code>.</p>
+        <CodeBlock filename="App.jsx" code={`const name = "John Doe";\n\n// JSX allows embedding JS expressions using curly braces {}\nconst element = (\n  <div className="container">\n    <h1>Hello, {name}!</h1>\n    <p>Welcome to React.</p>\n    <img src="logo.png" alt="Logo" /> {/* Must be self-closing */}\n  </div>\n);`} />
+
+        <div className="bg-blue-900/30 border-l-4 border-blue-500 p-4 mt-6 rounded-r-md">
+          <p className="text-blue-200 text-sm"><strong>Rule:</strong> A JSX expression must have exactly <strong>one</strong> outermost parent element. If you don't want an extra <code className="bg-gray-800 px-1 py-0.5 rounded">&lt;div&gt;</code> in the DOM, use a Fragment: <code className="bg-gray-800 px-1 py-0.5 rounded">&lt;&gt; ... &lt;/&gt;</code>.</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'react_components',
+    title: '2. Components & Props',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Components & Props</h2>
+        <p className="text-gray-300 text-lg">Components are independent, reusable bits of code. They act like JavaScript functions but return HTML via JSX.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Functional Components</h3>
+        <CodeBlock filename="Greeting.jsx" code={`// Components MUST start with an uppercase letter\nfunction Greeting(props) {\n  return <h2>Hello, {props.name}!</h2>;\n}\n\nexport default Greeting;`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Passing Props</h3>
+        <p className="text-gray-300">Props (properties) are how we pass data from one component down to another. They are <strong>read-only</strong>.</p>
+        
+        <CodeBlock filename="App.jsx" code={`import Greeting from './Greeting';\n\nfunction App() {\n  return (\n    <div>\n      {/* Passing strings and numbers as props */}\n      <Greeting name="Alice" />\n      <Greeting name="Bob" />\n    </div>\n  );\n}`} />
+      </div>
+    )
+  },
+  {
+    id: 'react_state',
+    title: '3. State & useState Hook',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">State & Hooks</h2>
+        <p className="text-gray-300 text-lg">Props get passed down, but <strong>State</strong> is managed internally by a component. When state changes, React automatically re-renders the component.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The useState Hook</h3>
+        <p className="text-gray-300">Hooks let you "hook into" React features inside functional components.</p>
+        
+        <CodeBlock filename="Counter.jsx" code={`import React, { useState } from 'react';\n\nfunction Counter() {\n  // Destructure the current state value and the function to update it\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <p>You clicked {count} times</p>\n      {/* NEVER do count = count + 1. Always use the setter function */}\n      <button onClick={() => setCount(count + 1)}>\n        Click me\n      </button>\n    </div>\n  );\n}\n\nexport default Counter;`} />
+      </div>
+    )
+  },
+  {
+    id: 'react_events',
+    title: '4. Events & Conditionals',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Events & Conditional Rendering</h2>
+        <p className="text-gray-300 text-lg">Handling events in React is similar to HTML, but events are named using camelCase, and you pass a function reference instead of a string.</p>
+        
+        <CodeBlock filename="Button.jsx" code={`function ActionButton() {\n  // Event handler function\n  const handleClick = (message) => {\n    alert(message);\n  };\n\n  return (\n    // Use an arrow function if you need to pass arguments!\n    <button onClick={() => handleClick("Button was clicked!")}>\n      Show Message\n    </button>\n  );\n}`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Conditional Rendering</h3>
+        <p className="text-gray-300">You cannot use standard <code className="bg-gray-800 px-1 py-0.5 rounded">if</code> statements directly inside JSX. We use the ternary operator <code className="bg-gray-800 px-1 py-0.5 rounded">? :</code> or the logical AND <code className="bg-gray-800 px-1 py-0.5 rounded">&&</code>.</p>
+        <CodeBlock filename="Profile.jsx" code={`function Profile({ isLoggedIn, unreadMessages }) {\n  return (\n    <div>\n      {/* Ternary Operator (if-else) */}\n      {isLoggedIn ? <h1>Welcome back!</h1> : <h1>Please log in.</h1>}\n\n      {/* Logical AND (if true, do this) */}\n      {unreadMessages > 0 && (\n        <p>You have {unreadMessages} unread messages.</p>\n      )}\n    </div>\n  );\n}`} />
+      </div>
+    )
+  },
+  {
+    id: 'react_lists',
+    title: '5. Lists & Keys',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Rendering Lists</h2>
+        <p className="text-gray-300 text-lg">In React, we use the JavaScript <code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">map()</code> array method to transform lists of data into lists of JSX elements.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The Key Prop</h3>
+        <p className="text-gray-300">Every element rendered inside a loop MUST have a unique <code className="bg-gray-800 px-1 py-0.5 rounded">key</code> prop. This helps React identify which items have changed, been added, or been removed.</p>
+        
+        <CodeBlock filename="CarList.jsx" code={`function CarList() {\n  const cars = [\n    { id: 1, brand: 'Ford' },\n    { id: 2, brand: 'BMW' },\n    { id: 3, brand: 'Audi' }\n  ];\n\n  return (\n    <ul>\n      {cars.map((car) => (\n        // The key belongs on the outermost element returned from the map\n        <li key={car.id}>Brand: {car.brand}</li>\n      ))}\n    </ul>\n  );\n}`} />
+      </div>
+    )
+  },
+  {
+    id: 'react_forms_effects',
+    title: '6. Forms & useEffect',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Forms & Side Effects</h2>
+        <p className="text-gray-300 text-lg">React controls form data via state (Controlled Components). Side effects like fetching data are handled by <code className="text-[#61DAFB] bg-gray-800 px-1 py-0.5 rounded">useEffect</code>.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Controlled Forms</h3>
+        <CodeBlock filename="MyForm.jsx" code={`import { useState } from 'react';\n\nfunction MyForm() {\n  const [name, setName] = useState("");\n\n  const handleSubmit = (event) => {\n    event.preventDefault();\n    alert(\`Submitted: \${name}\`);\n  };\n\n  return (\n    <form onSubmit={handleSubmit}>\n      <input \n        type="text" \n        value={name} /* Controlled by React state */\n        onChange={(e) => setName(e.target.value)} \n      />\n      <button type="submit">Submit</button>\n    </form>\n  );\n}`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The useEffect Hook</h3>
+        <p className="text-gray-300">Runs code after the component renders. The dependency array <code className="bg-gray-800 px-1 py-0.5 rounded">[]</code> controls when it re-runs.</p>
+        <CodeBlock filename="DataFetcher.jsx" code={`import { useState, useEffect } from 'react';\n\nfunction DataFetcher() {\n  const [data, setData] = useState([]);\n\n  useEffect(() => {\n    // This code runs ONCE when the component first mounts\n    fetch('https://api.example.com/data')\n      .then(res => res.json())\n      .then(result => setData(result));\n      \n  }, []); // Empty array = run once. No array = run every render.\n\n  return <div>Loaded {data.length} items.</div>;\n}`} />
+      </div>
+    )
+  }
+];
+
 // --- VIEWS ---
 
 // Unified Course View Component
@@ -767,7 +875,8 @@ const HomeDashboardView = ({ onSelectCourse }) => {
         </svg>
       ),
       hoverEffect: 'hover:border-[#61DAFB] hover:shadow-[0_8px_30px_rgba(97,218,251,0.2)]',
-      status: 'coming_soon'
+      status: 'available',
+      time: '2 hours'
     },
     {
       id: 'node',
@@ -998,6 +1107,18 @@ export default function App() {
       progressBg: 'bg-yellow-800/20',
       progressFill: 'bg-black',
       badgeBg: 'bg-black text-[#F7DF1E]'
+    },
+    react: {
+      bg: 'bg-[#20232A]',
+      text: 'text-[#61DAFB]',
+      navText: 'text-[#61DAFB]',
+      borderLight: 'border-[#61DAFB]/30',
+      lightBg: 'bg-[#61DAFB]/10',
+      hoverBg: 'hover:bg-[#282c34]',
+      navHover: 'hover:bg-[#61DAFB]/10',
+      progressBg: 'bg-[#61DAFB]/20',
+      progressFill: 'bg-[#61DAFB]',
+      badgeBg: 'bg-[#61DAFB] text-[#20232A]'
     }
   };
 
@@ -1043,6 +1164,18 @@ export default function App() {
         sections={jsCourseSections} 
         theme={themes.js}
         totalTime="1h 30m"
+        onBack={() => setCurrentView('home')} 
+      />
+    );
+  }
+
+  if (currentView === 'react') {
+    return (
+      <CourseView 
+        title="React in 2 Hours" 
+        sections={reactCourseSections} 
+        theme={themes.react}
+        totalTime="2 hours"
         onBack={() => setCurrentView('home')} 
       />
     );
