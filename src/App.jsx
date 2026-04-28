@@ -628,6 +628,227 @@ const reactCourseSections = [
   }
 ];
 
+const nodeCourseSections = [
+  {
+    id: 'node_intro',
+    title: '1. Node.js Intro & HTTP',
+    time: '40 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Node.js Introduction</h2>
+        <p className="text-gray-300 text-lg">Node.js is an open-source, cross-platform runtime environment that allows you to execute JavaScript code <strong>outside</strong> of a web browser. It is built on Google Chrome's V8 JavaScript engine and is highly suited for building fast, scalable network applications.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The Built-in HTTP Module</h3>
+        <p className="text-gray-300">Node.js has a built-in module called HTTP, which allows Node.js to transfer data over the Hyper Text Transfer Protocol. It can create an HTTP server that listens to server ports and gives a response back to the client.</p>
+        <CodeBlock filename="server.js" code={`const http = require('http');\n\n// Create a server object\nhttp.createServer(function (req, res) {\n  // HTTP Header with status 200 (OK) and Content-Type\n  res.writeHead(200, {'Content-Type': 'text/html'});\n  \n  // Write a response to the client\n  res.write('Hello World! Node.js is running.');\n  \n  // End the response\n  res.end();\n}).listen(8080); // The server object listens on port 8080\n\nconsole.log('Server running at http://localhost:8080/');`} />
+
+        <div className="bg-green-900/30 border-l-4 border-green-500 p-4 mt-6 rounded-r-md">
+          <p className="text-green-200 text-sm"><strong>How to Run:</strong> Save the code above in a file named <code className="bg-gray-800 px-1 py-0.5 rounded">server.js</code>. Open your terminal, navigate to the folder, and run: <code className="bg-gray-800 font-bold px-1 py-0.5 rounded">node server.js</code>.</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'node_modules',
+    title: '2. Modules & NPM',
+    time: '30 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Modules & NPM</h2>
+        <p className="text-gray-300 text-lg">Consider modules to be the same as JavaScript libraries. A set of functions you want to include in your application.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Creating Your Own Modules</h3>
+        <p className="text-gray-300">You can use the <code className="text-[#339933] bg-gray-800 px-1 py-0.5 rounded">exports</code> keyword to make properties and methods available outside the module file.</p>
+        <CodeBlock filename="myfirstmodule.js" code={`// Exporting a simple function\nexports.myDateTime = function () {\n  return new Date();\n};`} />
+        
+        <CodeBlock filename="app.js" code={`const http = require('http');\nconst dt = require('./myfirstmodule'); // Import local module\n\nhttp.createServer(function (req, res) {\n  res.writeHead(200, {'Content-Type': 'text/html'});\n  res.write("The date and time are currently: " + dt.myDateTime());\n  res.end();\n}).listen(8080);`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">NPM (Node Package Manager)</h3>
+        <p className="text-gray-300">NPM is the world's largest software registry. It contains thousands of free packages you can download and use.</p>
+        <CodeBlock filename="Terminal" code={`# Initialize a new Node project (creates package.json)\nnpm init -y\n\n# Install a third-party package (e.g., upper-case)\nnpm install upper-case`} />
+        <CodeBlock filename="app.js" code={`const uc = require('upper-case');\nconsole.log(uc.upperCase("hello world!")); // Outputs: HELLO WORLD!`} />
+      </div>
+    )
+  },
+  {
+    id: 'node_fs',
+    title: '3. The File System (fs)',
+    time: '40 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Node.js File System</h2>
+        <p className="text-gray-300 text-lg">The Node.js file system module allows you to work with the file system on your computer to read, create, update, delete, and rename files.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Reading Files</h3>
+        <CodeBlock filename="app.js" code={`const http = require('http');\nconst fs = require('fs');\n\nhttp.createServer(function (req, res) {\n  // Read an HTML file and serve it\n  fs.readFile('index.html', function(err, data) {\n    if (err) {\n      res.writeHead(404, {'Content-Type': 'text/html'});\n      return res.end("404 Not Found");\n    }\n    res.writeHead(200, {'Content-Type': 'text/html'});\n    res.write(data);\n    return res.end();\n  });\n}).listen(8080);`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Creating & Updating Files</h3>
+        <ul className="list-disc ml-5 mt-2 space-y-2 text-gray-300 text-sm mb-4">
+          <li><code className="text-[#339933] bg-gray-800 px-1 py-0.5 rounded">fs.appendFile()</code>: Appends specified content to a file. Creates the file if it does not exist.</li>
+          <li><code className="text-[#339933] bg-gray-800 px-1 py-0.5 rounded">fs.writeFile()</code>: Replaces the specified file and content if it exists. Creates the file if it does not exist.</li>
+        </ul>
+        <CodeBlock filename="app.js" code={`const fs = require('fs');\n\n// Append text to a file\nfs.appendFile('mynewfile1.txt', 'Hello content!\\n', function (err) {\n  if (err) throw err;\n  console.log('Saved!');\n});`} />
+      </div>
+    )
+  },
+  {
+    id: 'node_url',
+    title: '4. URL Module & Routing',
+    time: '30 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">URL Module & Routing</h2>
+        <p className="text-gray-300 text-lg">The Built-in URL module splits up a web address into readable parts. This is essential for determining what the user is asking for (routing).</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Parsing a URL</h3>
+        <CodeBlock filename="app.js" code={`const url = require('url');\nconst address = 'http://localhost:8080/default.htm?year=2026&month=april';\n\nconst q = url.parse(address, true);\n\nconsole.log(q.host); // returns 'localhost:8080'\nconsole.log(q.pathname); // returns '/default.htm'\nconsole.log(q.search); // returns '?year=2026&month=april'\n\nconst qdata = q.query; // returns an object: { year: 2026, month: 'april' }\nconsole.log(qdata.month); // returns 'april'`} />
+
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Basic Server Routing</h3>
+        <CodeBlock filename="server.js" code={`const http = require('http');\nconst url = require('url');\n\nhttp.createServer(function (req, res) {\n  const q = url.parse(req.url, true);\n  \n  if (q.pathname === "/") {\n    res.writeHead(200, {'Content-Type': 'text/html'});\n    res.write("<h1>Home Page</h1>");\n  } else if (q.pathname === "/about") {\n    res.writeHead(200, {'Content-Type': 'text/html'});\n    res.write("<h1>About Us</h1>");\n  } else {\n    res.writeHead(404, {'Content-Type': 'text/html'});\n    res.write("<h1>404 Page Not Found</h1>");\n  }\n  res.end();\n}).listen(8080);`} />
+      </div>
+    )
+  },
+  {
+    id: 'node_events',
+    title: '5. Node.js Events',
+    time: '30 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Node.js Events</h2>
+        <p className="text-gray-300 text-lg">Node.js is perfect for event-driven applications. Every action on a computer is an event. Like when a connection is made or a file is opened.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">The EventEmitter Object</h3>
+        <p className="text-gray-300">Node.js has a built-in module, called <code className="text-[#339933] bg-gray-800 px-1 py-0.5 rounded">events</code>, where you can create-, fire-, and listen for- your own events.</p>
+        <CodeBlock filename="app.js" code={`const events = require('events');\nconst eventEmitter = new events.EventEmitter();\n\n// Create an event handler:\nconst myEventHandler = function () {\n  console.log('I hear a scream!');\n}\n\n// Assign the event handler to an event named 'scream':\neventEmitter.on('scream', myEventHandler);\n\n// Fire the 'scream' event:\neventEmitter.emit('scream');`} />
+      </div>
+    )
+  },
+  {
+    id: 'node_api',
+    title: '6. Building a Simple API',
+    time: '70 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Building a JSON API</h2>
+        <p className="text-gray-300 text-lg">Node.js is frequently used to build backend REST APIs that send JSON data to frontend frameworks like React or Vue.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Serving JSON Data</h3>
+        <CodeBlock filename="api.js" code={`const http = require('http');\n\n// Sample data simulating a database\nconst users = [\n  { id: 1, name: "Alice", role: "Admin" },\n  { id: 2, name: "Bob", role: "User" }\n];\n\nhttp.createServer(function (req, res) {\n  if (req.url === '/api/users' && req.method === 'GET') {\n    // 1. Set the header to indicate we are sending JSON\n    res.writeHead(200, { 'Content-Type': 'application/json' });\n    \n    // 2. Convert the JavaScript array into a JSON string\n    res.write(JSON.stringify(users));\n    \n    // 3. End the response\n    res.end();\n  } else {\n    res.writeHead(404, { 'Content-Type': 'application/json' });\n    res.write(JSON.stringify({ message: "Route not found" }));\n    res.end();\n  }\n}).listen(8080);\n\nconsole.log("JSON API running on port 8080");`} />
+      </div>
+    )
+  }
+];
+
+const postgresCourseSections = [
+  {
+    id: 'pg_intro',
+    title: '1. PostgreSQL Intro & Concepts',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">PostgreSQL Introduction</h2>
+        <p className="text-gray-300 text-lg">PostgreSQL is a powerful, open-source object-relational database system. It uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Relational Databases</h3>
+        <p className="text-gray-300">Data is organized into tables (relations) consisting of rows and columns. Tables can be linked (related) to each other to minimize redundancy.</p>
+        
+        <CodeBlock filename="query.sql" code={`-- Check your PostgreSQL version\nSELECT version();`} />
+      </div>
+    )
+  },
+  {
+    id: 'pg_tables',
+    title: '2. Databases & Tables',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Creating Databases & Tables</h2>
+        <p className="text-gray-300 text-lg">Before storing data, you must define the structure (schema) using tables and specifying data types.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Creating a Table</h3>
+        <p className="text-gray-300">Use the <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">CREATE TABLE</code> statement to define columns and their data types (e.g., VARCHAR, INT, DATE).</p>
+        
+        <CodeBlock filename="schema.sql" code={`CREATE TABLE customers (\n  customer_id SERIAL PRIMARY KEY,\n  first_name VARCHAR(50) NOT NULL,\n  last_name VARCHAR(50) NOT NULL,\n  email VARCHAR(100) UNIQUE,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);`} />
+        
+        <div className="bg-blue-900/30 border-l-4 border-blue-500 p-4 mt-6 rounded-r-md">
+          <p className="text-blue-200 text-sm"><strong>SERIAL:</strong> Automatically generates unique integer values (auto-increment).<br/><strong>PRIMARY KEY:</strong> Uniquely identifies each record.</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'pg_crud',
+    title: '3. CRUD Operations',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Inserting & Modifying Data</h2>
+        <p className="text-gray-300 text-lg">CRUD stands for Create, Read, Update, and Delete. These are the four basic operations of persistent storage.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Insert, Update, Delete</h3>
+        <CodeBlock filename="query.sql" code={`-- CREATE (Insert data)\nINSERT INTO customers (first_name, last_name, email)\nVALUES ('John', 'Doe', 'john@example.com');\n\n-- UPDATE (Modify data)\nUPDATE customers\nSET email = 'john.doe@example.com'\nWHERE customer_id = 1;\n\n-- DELETE (Remove data)\nDELETE FROM customers\nWHERE customer_id = 1;`} />
+        
+        <div className="bg-red-900/30 border-l-4 border-red-500 p-4 mt-6 rounded-r-md">
+          <p className="text-red-200 text-sm"><strong>Warning:</strong> Always use a <code className="bg-gray-800 px-1 py-0.5 rounded">WHERE</code> clause with UPDATE and DELETE. If you omit it, you will modify or delete ALL records in the table!</p>
+        </div>
+      </div>
+    )
+  },
+  {
+    id: 'pg_select',
+    title: '4. Querying & Filtering',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">The SELECT Statement</h2>
+        <p className="text-gray-300 text-lg">The <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">SELECT</code> statement is used to fetch data from a database. You can filter the results using <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">WHERE</code>.</p>
+        
+        <CodeBlock filename="query.sql" code={`-- Select all columns\nSELECT * FROM customers;\n\n-- Select specific columns and filter results\nSELECT first_name, email\nFROM customers\nWHERE last_name = 'Smith' AND created_at > '2025-01-01';\n\n-- Pattern matching with LIKE (% represents any characters)\nSELECT * FROM customers\nWHERE email LIKE '%@gmail.com';`} />
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">Sorting and Limiting</h3>
+        <CodeBlock filename="query.sql" code={`SELECT * FROM customers\nORDER BY created_at DESC -- Sorts descending (newest first)\nLIMIT 10;                -- Returns only the top 10 rows`} />
+      </div>
+    )
+  },
+  {
+    id: 'pg_joins',
+    title: '5. Relational Joins',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">SQL Joins</h2>
+        <p className="text-gray-300 text-lg">A <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">JOIN</code> clause is used to combine rows from two or more tables, based on a related column between them.</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">INNER JOIN Example</h3>
+        <p className="text-gray-300">Returns records that have matching values in both tables.</p>
+        <CodeBlock filename="query.sql" code={`SELECT \n  orders.order_id, \n  customers.first_name, \n  orders.order_date\nFROM orders\nINNER JOIN customers ON orders.customer_id = customers.customer_id;`} />
+        
+        <ul className="list-disc ml-5 mt-4 space-y-2 text-gray-300 text-sm">
+          <li><strong>LEFT JOIN:</strong> Returns all records from the left table, and matched records from the right.</li>
+          <li><strong>RIGHT JOIN:</strong> Returns all records from the right table, and matched records from the left.</li>
+          <li><strong>FULL JOIN:</strong> Returns all records when there is a match in either left or right table.</li>
+        </ul>
+      </div>
+    )
+  },
+  {
+    id: 'pg_aggregate',
+    title: '6. Aggregation & Grouping',
+    time: '20 mins',
+    content: (
+      <div className="space-y-4">
+        <h2 className="text-3xl font-bold text-gray-100">Aggregating Data</h2>
+        <p className="text-gray-300 text-lg">Aggregate functions perform a calculation on a set of values and return a single value (e.g., COUNT, SUM, AVG, MIN, MAX).</p>
+        
+        <h3 className="text-xl font-semibold text-gray-200 mt-6">GROUP BY and HAVING</h3>
+        <p className="text-gray-300">The <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">GROUP BY</code> statement groups rows that have the same values into summary rows. <code className="text-[#336791] bg-gray-800 px-1 py-0.5 rounded">HAVING</code> is used to filter these groups.</p>
+        
+        <CodeBlock filename="query.sql" code={`-- Count total customers per country\nSELECT country, COUNT(customer_id) as total_customers\nFROM customers\nGROUP BY country\n-- Only show countries with more than 5 customers\nHAVING COUNT(customer_id) > 5\nORDER BY total_customers DESC;`} />
+      </div>
+    )
+  }
+];
+
 // --- VIEWS ---
 
 // Unified Course View Component
@@ -897,7 +1118,8 @@ const HomeDashboardView = ({ onSelectCourse }) => {
         </svg>
       ),
       hoverEffect: 'hover:border-[#339933] hover:shadow-[0_8px_30px_rgba(51,153,51,0.2)]',
-      status: 'coming_soon'
+      status: 'available',
+      time: '4 hours'
     },
     {
       id: 'postgres',
@@ -916,7 +1138,8 @@ const HomeDashboardView = ({ onSelectCourse }) => {
         </svg>
       ),
       hoverEffect: 'hover:border-[#336791] hover:shadow-[0_8px_30px_rgba(51,103,145,0.2)]',
-      status: 'coming_soon'
+      status: 'available',
+      time: '2 hours'
     }
   ];
 
@@ -1119,6 +1342,30 @@ export default function App() {
       progressBg: 'bg-[#61DAFB]/20',
       progressFill: 'bg-[#61DAFB]',
       badgeBg: 'bg-[#61DAFB] text-[#20232A]'
+    },
+    node: {
+      bg: 'bg-[#339933]',
+      text: 'text-[#339933]',
+      navText: 'text-white',
+      borderLight: 'border-[#339933]/30',
+      lightBg: 'bg-[#339933]/10',
+      hoverBg: 'hover:bg-[#287a28]',
+      navHover: 'hover:bg-[#287a28]',
+      progressBg: 'bg-[#287a28]',
+      progressFill: 'bg-[#83cd29]',
+      badgeBg: 'bg-[#1f5c1f] text-white'
+    },
+    postgres: {
+      bg: 'bg-[#336791]',
+      text: 'text-[#336791]',
+      navText: 'text-white',
+      borderLight: 'border-[#336791]/30',
+      lightBg: 'bg-[#336791]/10',
+      hoverBg: 'hover:bg-[#285375]',
+      navHover: 'hover:bg-[#285375]',
+      progressBg: 'bg-[#285375]',
+      progressFill: 'bg-[#6094C0]',
+      badgeBg: 'bg-[#1d3d57] text-white'
     }
   };
 
@@ -1175,6 +1422,30 @@ export default function App() {
         title="React in 2 Hours" 
         sections={reactCourseSections} 
         theme={themes.react}
+        totalTime="2 hours"
+        onBack={() => setCurrentView('home')} 
+      />
+    );
+  }
+
+  if (currentView === 'node') {
+    return (
+      <CourseView 
+        title="Node.js in 4 Hours" 
+        sections={nodeCourseSections} 
+        theme={themes.node}
+        totalTime="4 hours"
+        onBack={() => setCurrentView('home')} 
+      />
+    );
+  }
+
+  if (currentView === 'postgres') {
+    return (
+      <CourseView 
+        title="PostgreSQL in 2 Hours" 
+        sections={postgresCourseSections} 
+        theme={themes.postgres}
         totalTime="2 hours"
         onBack={() => setCurrentView('home')} 
       />
